@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antonio Misiti — IT Consultant / Network &amp; System Administrator</title>
+<meta name="description" content="Curriculum Vitae of Antonio Misiti — IT Consultant, Network Administrator and System Administrator based in Bern, Switzerland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=Geist+Mono:wght@100..900&family=Instrument+Serif:ital@0;1&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --bg:#121316; --bg-raised:#101014; --bg-sunken:#060607;
+  --ink:#f2f1ee; --ink-strong:#fff;
+  --muted:#f2f1ee99; --faint:#f2f1ee61;
+  --line:#f2f1ee26; --line-strong:#f2f1ee66;
+  --accent:#2d81ff; --accent-ink:#74aaff;
+  --invert-bg:#fff; --invert-fg:#0b0b0c;
+  --scanline:#ffffff08;
+  --font-display:"Archivo", system-ui, sans-serif;
+  --font-body:"Inter", system-ui, sans-serif;
+  --font-serif:"Instrument Serif", Georgia, serif;
+  --font-mono:"Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme:dark;
+}
+html[data-theme="light"]{
+  --bg:#f2f1ee; --bg-raised:#faf9f7; --bg-sunken:#e9e8e4;
+  --ink:#101014; --ink-strong:#000;
+  --muted:#1010149e; --faint:#1010146b;
+  --line:#10101429; --line-strong:#10101466;
+  --accent:#2d81ff; --accent-ink:#1659c4;
+  --invert-bg:#101014; --invert-fg:#f2f1ee;
+  --scanline:#1010140a;
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:clip;
+  transition:background-color .2s linear,color .2s linear;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ---------- utility type ---------- */
+.hud-label{
+  font-family:var(--font-mono);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  font-size:.6875rem;
+  font-weight:500;
+  margin:0;
+}
+.faint{color:var(--faint)}
+.muted{color:var(--muted)}
+.accent{color:var(--accent-ink)}
+.display{
+  font-family:var(--font-display);
+  font-weight:500;
+  letter-spacing:-.035em;
+  line-height:1.02;
+  color:var(--ink-strong);
+  margin:0;
+}
+.serif{
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-weight:400;
+  letter-spacing:-.01em;
+  color:var(--muted);
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  background:color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1280px;margin:0 auto;
+  height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;padding:0 20px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:18px;height:18px;color:var(--accent)}
+.brand-name{
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-strong);
+}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a{
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+  transition:color .15s linear;
+}
+.nav-links a:hover{color:var(--ink-strong)}
+.theme-toggle{
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);
+  background:none;border:1px solid var(--line);
+  padding:6px 10px;cursor:pointer;
+  transition:border-color .15s linear,color .15s linear;
+}
+.theme-toggle:hover{color:var(--ink-strong);border-color:var(--line-strong)}
+@media (max-width:720px){ .nav-links a:not(.nav-cta){display:none} }
+
+/* ============================================================
+   FRAME / SECTIONS (hairline container + ticks + sticky eyebrow)
+   ============================================================ */
+main{padding-top:56px}
+.frame{max-width:1280px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.section{position:relative}
+.rule{
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--line);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .9s cubic-bezier(0,0,.2,1);
+}
+.in .rule,[data-reveal].in .rule{transform:scaleX(1)}
+.tick{pointer-events:none;width:11px;height:11px;position:absolute}
+.tick::before,.tick::after{content:"";background:var(--line-strong);position:absolute}
+.tick::before{width:1px;top:0;bottom:0;left:5px}
+.tick::after{height:1px;top:5px;left:0;right:0}
+.tick.tl{top:-5px;left:-6px}
+.tick.tr{top:-5px;right:-5px}
+
+.eyebrow{
+  position:sticky;top:56px;z-index:30;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:color-mix(in srgb, var(--bg) 62%, transparent);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.eyebrow-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:12px 24px;
+}
+.section-body{padding:56px 24px}
+@media (min-width:768px){
+  .eyebrow-inner{padding:12px 40px}
+  .section-body{padding:80px 40px}
+}
+
+/* reveal animation */
+[data-reveal]{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .7s cubic-bezier(0,0,.2,1),transform .7s cubic-bezier(0,0,.2,1);
+}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;overflow:hidden}
+.hero-grid{
+  display:grid;grid-template-columns:1fr;gap:44px;
+  padding:64px 24px 56px;
+  align-items:center;
+}
+@media (min-width:960px){
+  .hero-grid{grid-template-columns:1.15fr .85fr;gap:56px;padding:88px 40px 72px}
+}
+.hero-kicker{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+.hero-kicker .dot{width:7px;height:7px;background:var(--accent);display:block}
+h1.display{
+  font-size:clamp(2.6rem,7vw,5.2rem);
+  line-height:.98;
+  letter-spacing:-.04em;
+}
+h1.display .serif{font-size:1.02em}
+.hero-roles{
+  display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:26px;
+}
+.hero-roles span{
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);padding:7px 11px;
+}
+.hero-roles span:first-child{
+  color:var(--invert-fg);background:var(--invert-bg);border-color:transparent;
+}
+.hero-lede{
+  margin:26px 0 0;max-width:34rem;
+  font-size:1.0625rem;line-height:1.65;color:var(--muted);
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;
+  padding-top:22px;border-top:1px solid var(--line);
+}
+.hero-meta div{display:flex;flex-direction:column;gap:6px}
+.hero-meta .val{font-family:var(--font-mono);font-size:.8125rem;color:var(--ink);letter-spacing:.02em}
+
+/* ---------- buttons (square, mono, uppercase) ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  height:48px;padding:0 24px;border-radius:0;
+  font-family:var(--font-mono);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+  transition:opacity .15s linear,border-color .15s linear,background-color .15s linear,color .15s linear;
+  cursor:pointer;border:1px solid transparent;
+}
+.btn-primary{background:var(--invert-bg);color:var(--invert-fg)}
+.btn-primary:hover{opacity:.8}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-ghost:hover{border-color:transparent;background:var(--bg-raised)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{opacity:.85}
+.btn-outline-invert{background:transparent;color:var(--invert-fg);border-color:color-mix(in srgb,var(--invert-fg) 40%,transparent)}
+.btn-outline-invert:hover{border-color:transparent;background:color-mix(in srgb,var(--invert-fg) 10%,transparent)}
+.btn svg{width:15px;height:15px}
+
+/* ============================================================
+   PHOTO - style - treatment
+   ============================================================ */
+.photo{margin:0;position:relative}
+.photo-frame{
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  background:var(--bg-sunken);
+  border:1px solid var(--line);
+}
+.photo-frame img{
+  width:100%;height:100%;object-fit:cover;object-position:50% 22%;
+  /* --- FILTERS: ---
+     1. full desaturation (photo is already B&W, this guarantees it)
+     2. contrast punch + slight lift of the shadows
+     3. very subtle warm-down so blacks read as deep charcoal (#0b0b0c) */
+  filter:grayscale(1) contrast(1.18) brightness(.97) saturate(0);
+  transform:scale(1.015);
+}
+/* duotone: cool blue grade that blends with --accent */
+.photo-tint{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(155deg, rgba(45,129,255,.34) 0%, rgba(45,129,255,0) 42%),
+    linear-gradient(330deg, rgba(45,129,255,.16) 0%, rgba(16,16,20,.42) 78%);
+  mix-blend-mode:soft-light;
+}
+.photo-tint-2{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(155deg, rgba(45,129,255,.22), rgba(45,129,255,0) 55%);
+  mix-blend-mode:color;
+}
+/* CRT scanlines — matches --scanline token of the site */
+.photo-scan{
+  position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.045) 0 1px,
+    transparent 1px 3px
+  );
+  opacity:.5;
+}
+/* film grain */
+.photo-grain{
+  position:absolute;inset:-50%;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  opacity:.14;mix-blend-mode:overlay;
+}
+/* vignette */
+.photo-vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 85% at 50% 35%, transparent 45%, rgba(6,6,7,.55) 100%);
+}
+.photo-hud{
+  position:absolute;left:12px;top:12px;z-index:3;
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--font-mono);font-size:.625rem;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(242,241,238,.85);
+  text-shadow:0 1px 6px rgba(0,0,0,.6);
+}
+.photo-hud .rec{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 1.6s steps(1) infinite}
+@keyframes blink{50%{opacity:.15}}
+.photo-hud-br{
+  position:absolute;right:12px;bottom:12px;z-index:3;
+  font-family:var(--font-mono);font-size:.625rem;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(242,241,238,.7);
+  text-shadow:0 1px 6px rgba(0,0,0,.6);
+}
+.photo-caption{
+  display:flex;justify-content:space-between;gap:16px;
+  margin-top:10px;color:var(--faint);
+}
+.photo .tick{z-index:4}
+.photo .tick::before,.photo .tick::after{background:var(--line-strong)}
+
+/* ============================================================
+   MARQUEE TICKER
+   ============================================================ */
+.marquee{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;position:relative;
+  background:color-mix(in srgb,var(--bg-raised) 70%,transparent);
+}
+.marquee-track{
+  display:flex;align-items:center;width:max-content;
+  animation:scroll 34s linear infinite;
+}
+.marquee-track ul{display:flex;align-items:center;list-style:none;margin:0;padding:0}
+.marquee li{
+  display:flex;align-items:center;white-space:nowrap;
+  padding:12px 24px;color:var(--muted);
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.15em;text-transform:uppercase;
+}
+.marquee li i{color:var(--accent-ink);font-style:normal;margin-right:22px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============================================================
+   PROFILE
+   ============================================================ */
+.profile-quote{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(1.5rem,3.4vw,2.6rem);
+  line-height:1.24;letter-spacing:-.03em;color:var(--ink-strong);
+  max-width:24ch;margin:0;
+}
+.profile-quote em{
+  font-family:var(--font-serif);font-style:italic;font-weight:400;
+  color:var(--accent-ink);
+}
+.profile-grid{
+  display:grid;grid-template-columns:1fr;gap:40px;margin-top:44px;
+}
+@media (min-width:860px){.profile-grid{grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}}
+.profile-card{padding-top:22px}
+@media (min-width:860px){.profile-card{background:var(--bg);padding:26px 26px 30px}}
+.profile-card h3{
+  font-family:var(--font-display);font-size:1.0625rem;font-weight:600;
+  letter-spacing:-.015em;margin:14px 0 8px;color:var(--ink-strong);
+}
+.profile-card p{margin:0;font-size:.9375rem;line-height:1.6;color:var(--muted)}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-grid{
+  display:grid;grid-template-columns:1fr;gap:1px;
+  background:var(--line);border-top:1px solid var(--line);
+}
+@media (min-width:640px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.skills-grid{grid-template-columns:repeat(3,1fr)}}
+.skill{
+  background:var(--bg);padding:26px 24px 30px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:background-color .15s linear;
+}
+.skill:hover{background:var(--bg-raised)}
+.skill-num{
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.15em;color:var(--accent-ink);
+}
+.skill h3{
+  font-family:var(--font-display);font-weight:500;font-size:1.375rem;
+  letter-spacing:-.025em;margin:0;color:var(--ink-strong);
+}
+.skill p{margin:0;font-size:.875rem;line-height:1.6;color:var(--muted)}
+.skill .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.skill .tags span{
+  font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);border:1px solid var(--line);padding:4px 7px;
+}
+
+/* ============================================================
+   EXPERIENCE
+   ============================================================ */
+.jobs{
+  display:grid;grid-template-columns:1fr;gap:1px;
+  background:var(--line);border-top:1px solid var(--line);
+}
+@media (min-width:860px){.jobs{grid-template-columns:repeat(2,1fr)}}
+.job{
+  background:var(--bg);padding:0;
+  transition:background-color .15s linear;
+  display:flex;flex-direction:column;
+}
+.job:hover{background:var(--bg-raised)}
+.job-head{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  border-bottom:1px solid var(--line);padding:11px 24px;
+}
+.job-body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+.job h3{
+  font-family:var(--font-display);font-weight:500;font-size:1.375rem;
+  letter-spacing:-.025em;margin:0;color:var(--ink-strong);
+}
+.job .company{
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-ink);margin:0;
+}
+.job p.desc{margin:2px 0 0;font-size:.9375rem;line-height:1.62;color:var(--muted)}
+.job .stack{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:16px;
+}
+.job .stack span{
+  font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);border:1px solid var(--line);padding:4px 7px;
+}
+.job .job-idx{
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.15em;color:var(--faint);
+}
+
+/* ============================================================
+   EDUCATION + LANGUAGES
+   ============================================================ */
+.two-col{display:grid;grid-template-columns:1fr;gap:44px}
+@media (min-width:860px){.two-col{grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}}
+.col-inner{padding-top:6px}
+@media (min-width:860px){.col-inner{background:var(--bg);padding:28px 28px 34px}}
+.col-title{margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.edu h3{
+  font-family:var(--font-display);font-weight:500;font-size:1.5rem;
+  letter-spacing:-.025em;margin:0 0 10px;color:var(--ink-strong);
+}
+.edu p{margin:0 0 6px;font-size:.9375rem;line-height:1.6;color:var(--muted)}
+.lang{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.lang:last-child{border-bottom:0}
+.lang-name{font-size:.9375rem;color:var(--ink)}
+.lang-level{display:flex;align-items:center;gap:12px}
+.lang-level .lbl{
+  font-family:var(--font-mono);font-size:.625rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);
+}
+.meter{display:flex;gap:3px}
+.meter i{display:block;width:9px;height:14px;background:var(--line-strong);font-style:normal}
+.meter i.on{background:var(--accent)}
+
+/* ============================================================
+   CONTACT (inverted block) + FOOTER
+   ============================================================ */
+.contact{
+  background:var(--invert-bg);color:var(--invert-fg);
+  position:relative;overflow:hidden;
+}
+.contact::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(to bottom, rgba(128,128,128,.06) 0 1px, transparent 1px 3px);
+}
+.contact-inner{
+  max-width:1280px;margin:0 auto;position:relative;z-index:1;
+  padding:76px 24px 84px;
+}
+@media (min-width:768px){.contact-inner{padding:104px 40px 112px}}
+.contact h2{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.035em;
+  margin:20px 0 0;color:var(--invert-fg);max-width:16ch;
+}
+.contact h2 .serif{color:color-mix(in srgb,var(--invert-fg) 60%,transparent)}
+.contact-lede{
+  margin:22px 0 0;max-width:36rem;font-size:1.0625rem;line-height:1.65;
+  color:color-mix(in srgb,var(--invert-fg) 68%,transparent);
+}
+.contact-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.contact .hud-label{color:color-mix(in srgb,var(--invert-fg) 55%,transparent)}
+.contact-details{
+  display:grid;grid-template-columns:1fr;gap:1px;margin-top:52px;
+  background:color-mix(in srgb,var(--invert-fg) 16%,transparent);
+  border-top:1px solid color-mix(in srgb,var(--invert-fg) 16%,transparent);
+}
+@media (min-width:720px){.contact-details{grid-template-columns:repeat(3,1fr)}}
+.contact-details a,.contact-details div{
+  background:var(--invert-bg);padding:20px 20px 22px;display:flex;flex-direction:column;gap:8px;
+  transition:background-color .15s linear;
+}
+.contact-details a:hover{background:color-mix(in srgb,var(--invert-fg) 7%,var(--invert-bg))}
+.contact-details .val{
+  font-family:var(--font-mono);font-size:.875rem;letter-spacing:.02em;color:var(--invert-fg);
+}
+.contact-details .hud-label{color:color-mix(in srgb,var(--invert-fg) 50%,transparent)}
+
+.footer{border-top:1px solid var(--line);background:var(--bg)}
+.footer-inner{
+  max-width:1280px;margin:0 auto;padding:26px 24px;
+  display:flex;flex-wrap:wrap;gap:14px 30px;align-items:center;justify-content:space-between;
+}
+.footer p{margin:0;color:var(--faint);max-width:56ch;line-height:1.7}
+
+/* print */
+@media print{
+  .nav,.marquee,.theme-toggle,.hero-actions,.contact-actions{display:none!important}
+  html[data-theme],html{background:#fff}
+  body{background:#fff;color:#000}
+  main{padding-top:0}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  [data-reveal]{opacity:1;transform:none}
+  .rule{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Antonio Misiti — home">
+      <span class="brand-name">Antonio&nbsp;Misiti</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#profile">01/ Profile</a>
+      <a href="#skills">02/ Skills</a>
+      <a href="#experience">03/ Experience</a>
+      <a href="#background">04/ Background</a>
+      <a class="nav-cta" href="#contact">05/ Contact</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch colour theme">Light</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="section hero">
+    <div class="frame" style="position:relative">
+      <span class="tick tl" aria-hidden="true"></span>
+      <span class="tick tr" aria-hidden="true"></span>
+
+      <div class="hero-grid">
+        <div>
+          <div class="hero-kicker" data-reveal>
+            <span class="dot" aria-hidden="true"></span>
+            <p class="hud-label muted">Curriculum Vitae <span class="faint">/</span> Bern, CH <span class="faint">/</span> 2026</p>
+          </div>
+
+          <h1 class="display" data-reveal>
+            Antonio Misiti<br>
+            <span class="serif">keeps systems running.</span>
+          </h1>
+
+          <div class="hero-roles" data-reveal>
+            <span>IT Consultant</span>
+            <span>Network Administrator</span>
+            <span>System Administrator</span>
+          </div>
+
+          <p class="hero-lede" data-reveal>
+            Working in the field of technology and IT has allowed me to develop excellent
+            analytical skills and a keen sense of orientation towards results.
+          </p>
+
+          <div class="hero-actions" data-reveal>
+            <a class="btn btn-primary" href="#experience">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              View experience
+            </a>
+            <a class="btn btn-ghost" href="mailto:antonio.misiti@gmail.com?subject=New%20Message">Get in touch</a>
+          </div>
+
+          <div class="hero-meta" data-reveal>
+            <div>
+              <p class="hud-label faint">Location</p>
+              <span class="val">3018 — Bern (BE)</span>
+            </div>
+            <div>
+              <p class="hud-label faint">Mobile</p>
+              <span class="val">+41 76 208 54 37</span>
+            </div>
+            <div>
+              <p class="hud-label faint">Email</p>
+              <span class="val">antonio.misiti@gmail.com</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- PHOTO with filters ---------- -->
+        <figure class="photo" data-reveal>
+          <div class="photo-frame">
+            <img src="foto-bn.jpg" alt="Black and white portrait of Antonio Misiti" width="1536" height="2048">
+            <span class="photo-tint" aria-hidden="true"></span>
+            <span class="photo-tint-2" aria-hidden="true"></span>
+            <span class="photo-scan" aria-hidden="true"></span>
+            <span class="photo-grain" aria-hidden="true"></span>
+            <span class="photo-vignette" aria-hidden="true"></span>
+            <span class="photo-hud" aria-hidden="true"><span class="rec"></span>Portrait / B&amp;W</span>
+            <span class="photo-hud-br" aria-hidden="true">ISO 400 · f/2.8</span>
+            <span class="tick tl" aria-hidden="true"></span>
+            <span class="tick tr" aria-hidden="true"></span>
+          </div>
+          <figcaption class="photo-caption hud-label">
+            <span>Fig. 01 — A. Misiti</span>
+            <span>1536 × 2048</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <ul>
+        <li><i>▪</i>Computer network</li>
+        <li><i>▪</i>Microsoft environment</li>
+        <li><i>▪</i>Linux environment</li>
+        <li><i>▪</i>Mac OS environment</li>
+        <li><i>▪</i>AI Agents</li>
+        <li><i>▪</i>WordPress / WooCommerce</li>
+        <li><i>▪</i>Unix systems</li>
+        <li><i>▪</i>Web development</li>
+      </ul>
+      <ul>
+        <li><i>▪</i>Computer network</li>
+        <li><i>▪</i>Microsoft environment</li>
+        <li><i>▪</i>Linux environment</li>
+        <li><i>▪</i>Mac OS environment</li>
+        <li><i>▪</i>AI Agents</li>
+        <li><i>▪</i>WordPress / WooCommerce</li>
+        <li><i>▪</i>Unix systems</li>
+        <li><i>▪</i>Web development</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================= 01 PROFILE ================= -->
+  <section class="section" id="profile" data-reveal-section>
+    <span class="rule" aria-hidden="true"></span>
+    <div class="frame" style="position:relative">
+      <span class="tick tl" aria-hidden="true"></span>
+      <span class="tick tr" aria-hidden="true"></span>
+
+      <div class="eyebrow">
+        <div class="eyebrow-inner">
+          <p class="hud-label muted"><span class="faint">01</span><span class="faint mx"> / </span>Professional profile</p>
+          <p class="hud-label faint hide-sm">Analyst mindset · results oriented</p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <p class="profile-quote" data-reveal>
+           <em>The result</em> is the goal.        
+        </p>
+
+        <div class="profile-grid">
+          <article class="profile-card" data-reveal>
+            <p class="hud-label faint">A / Approach</p>
+            <h3>Analytical by default</h3>
+            <p>Long experience across infrastructure and web projects trained a sharp analytical sense and a constant focus on measurable results.</p>
+          </article>
+          <article class="profile-card" data-reveal>
+            <p class="hud-label faint">B / Range</p>
+            <h3>Network to cloud to code</h3>
+            <p>From cabling and Windows / Linux / macOS estates to production web platforms: one person, the whole stack, no hand-offs.</p>
+          </article>
+          <article class="profile-card" data-reveal>
+            <p class="hud-label faint">C / Now</p>
+            <h3>Consultant &amp; AI agents</h3>
+            <p>Self-employed since 1999, currently advising on IT operations and building AI agents alongside traditional systems work.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 SKILLS ================= -->
+  <section class="section" id="skills" data-reveal-section>
+    <span class="rule" aria-hidden="true"></span>
+    <div class="frame" style="position:relative">
+      <span class="tick tl" aria-hidden="true"></span>
+      <span class="tick tr" aria-hidden="true"></span>
+
+      <div class="eyebrow">
+        <div class="eyebrow-inner">
+          <p class="hud-label muted"><span class="faint">02</span><span class="faint"> / </span>Job skills</p>
+          <p class="hud-label faint">Core competencies — 05</p>
+        </div>
+      </div>
+
+      <div class="section-body" style="padding-bottom:0">
+        <h2 class="display" style="font-size:clamp(2rem,5vw,3.6rem)" data-reveal>
+          The tools <span class="serif">I actually</span> use.
+        </h2>
+      </div>
+
+      <div class="skills-grid">
+        <article class="skill" data-reveal>
+          <span class="skill-num">01</span>
+          <h3>Computer network</h3>
+          <p>Design, cabling, routing and switching, firewalling and LAN/WAN administration for offices and production environments.</p>
+          <div class="tags"><span>TCP/IP</span><span>LAN/WAN</span><span>Firewall</span></div>
+        </article>
+        <article class="skill" data-reveal>
+          <span class="skill-num">02</span>
+          <h3>Microsoft environment</h3>
+          <p>Windows Server and client administration, Active Directory, Microsoft 365 and line-of-business application support.</p>
+          <div class="tags"><span>Windows Server</span><span>Active Directory</span><span>M365</span></div>
+        </article>
+        <article class="skill" data-reveal>
+          <span class="skill-num">03</span>
+          <h3>Linux environment</h3>
+          <p>Unix/Linux system administration in production: www.poste.it and www.postacertificata.gov.it operations and first-tier support.</p>
+          <div class="tags"><span>Unix</span><span>Linux</span><span>Production ops</span></div>
+        </article>
+        <article class="skill" data-reveal>
+          <span class="skill-num">04</span>
+          <h3>Mac OS environment</h3>
+          <p>Deployment, integration and support of macOS workstations inside mixed-platform company networks.</p>
+          <div class="tags"><span>macOS</span><span>MDM</span><span>Mixed estate</span></div>
+        </article>
+        <article class="skill" data-reveal>
+          <span class="skill-num">05</span>
+          <h3>AI Agents</h3>
+          <p>Design and orchestration of AI agents and automated workflows applied to real business processes.</p>
+          <div class="tags"><span>Agents</span><span>Automation</span><span>LLM ops</span></div>
+        </article>
+        <article class="skill" data-reveal>
+          <span class="skill-num">06</span>
+          <h3>Web technologies</h3>
+          <p>Dynamic websites and e-commerce delivered end-to-end since 1999, from markup to database.</p>
+          <div class="tags"><span>WordPress</span><span>WooCommerce</span><span>PHP</span><span>MySQL</span><span>JS</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 EXPERIENCE ================= -->
+  <section class="section" id="experience" data-reveal-section>
+    <span class="rule" aria-hidden="true"></span>
+    <div class="frame" style="position:relative">
+      <span class="tick tl" aria-hidden="true"></span>
+      <span class="tick tr" aria-hidden="true"></span>
+
+      <div class="eyebrow">
+        <div class="eyebrow-inner">
+          <p class="hud-label muted"><span class="faint">03</span><span class="faint"> / </span>Work experience</p>
+          <p class="hud-label faint">1999 — Present</p>
+        </div>
+      </div>
+
+      <div class="section-body" style="padding-bottom:0">
+        <h2 class="display" style="font-size:clamp(2rem,5vw,3.6rem)" data-reveal>
+          Always <span class="serif">in production.</span>
+        </h2>
+      </div>
+
+      <div class="jobs">
+        <article class="job" data-reveal>
+          <div class="job-head">
+            <p class="hud-label muted">Self-employed</p>
+            <p class="job-idx">1999 — Present</p>
+          </div>
+          <div class="job-body">
+            <p class="company">Continuous activity, in parallel with the roles below</p>
+            <h3>Web Developer &amp; IT Consultant</h3>
+            <p class="desc">Design and creation of dynamic websites and e-commerce solutions for clients across sectors.</p>
+            <div class="stack"><span>WordPress</span><span>WooCommerce</span><span>HTML/HTML5</span><span>CSS</span><span>PHP</span><span>MySQL</span><span>JavaScript</span></div>
+          </div>
+        </article>
+
+        <article class="job" data-reveal>
+          <div class="job-head">
+            <p class="hud-label muted">CalabriaGo S.a.S.</p>
+            <p class="job-idx">May 2017 — Oct 2019</p>
+          </div>
+          <div class="job-body">
+            <p class="company">Web Developer</p>
+            <h3>Tourist portals</h3>
+            <p class="desc">Tourist portal creator and manager. Design and development of the booking portal calabriago.eu (no longer online) and management of the calabriago.com booking portal (no longer online).</p>
+            <div class="stack"><span>Booking portals</span><span>Web design</span><span>Management</span></div>
+          </div>
+        </article>
+
+        <article class="job" data-reveal>
+          <div class="job-head">
+            <p class="hud-label muted">Postecom S.p.A.</p>
+            <p class="job-idx">May 2010 — Oct 2011</p>
+          </div>
+          <div class="job-body">
+            <p class="company">Unix &amp; Linux System Administrator</p>
+            <h3>Italian Post production</h3>
+            <p class="desc">System administration on Unix platforms in operations for www.poste.it and www.postacertificata.gov.it, first-tier technical support on production for Italian Post, maintenance of the production environments.</p>
+            <div class="stack"><span>Unix</span><span>Linux</span><span>Production support</span></div>
+          </div>
+        </article>
+
+        <article class="job" data-reveal>
+          <div class="job-head">
+            <p class="hud-label muted">GM Formazione</p>
+            <p class="job-idx">Jun 2011 — Jul 2011</p>
+          </div>
+          <div class="job-body">
+            <p class="company">Computer Science Teacher</p>
+            <h3>Networking course</h3>
+            <p class="desc">Computer networking course teaching: theory, infrastructure and hands-on laboratory exercises.</p>
+            <div class="stack"><span>Training</span><span>Networking</span></div>
+          </div>
+        </article>
+
+        <article class="job" data-reveal>
+          <div class="job-head">
+            <p class="hud-label muted">Onscreen</p>
+            <p class="job-idx">Jan 2008 — Mar 2010</p>
+          </div>
+          <div class="job-body">
+            <p class="company">Augmented Reality Developer</p>
+            <h3>Augmented reality apps</h3>
+            <p class="desc">Programming of augmented reality applications with the Total-Immersion D'Fusion Augmented Reality software.</p>
+            <div class="stack"><span>D'Fusion</span><span>AR</span><span>C++</span></div>
+          </div>
+        </article>
+
+        <article class="job" data-reveal>
+          <div class="job-head">
+            <p class="hud-label muted">Natuna S.p.A.</p>
+            <p class="job-idx">Jan 2006 — Dec 2007</p>
+          </div>
+          <div class="job-body">
+            <p class="company">Data Entry Operator</p>
+            <h3>Database population</h3>
+            <p class="desc">SAP and Microsoft Access database population, with attention to accuracy and consistency of large data sets.</p>
+            <div class="stack"><span>SAP</span><span>MS Access</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 BACKGROUND ================= -->
+  <section class="section" id="background" data-reveal-section>
+    <span class="rule" aria-hidden="true"></span>
+    <div class="frame" style="position:relative">
+      <span class="tick tl" aria-hidden="true"></span>
+      <span class="tick tr" aria-hidden="true"></span>
+
+      <div class="eyebrow">
+        <div class="eyebrow-inner">
+          <p class="hud-label muted"><span class="faint">04</span><span class="faint"> / </span>Education &amp; languages</p>
+          <p class="hud-label faint">Foundations</p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="two-col">
+          <div class="col-inner edu" data-reveal>
+            <p class="hud-label faint col-title">Education</p>
+            <h3>Scientific High School</h3>
+            <p>Diploma — Liceo Scientifico.</p>
+            <p class="hud-label muted" style="margin-top:14px">1991 — 1996</p>
+          </div>
+
+          <div class="col-inner" data-reveal>
+            <p class="hud-label faint col-title">Languages</p>
+            <div class="lang">
+              <span class="lang-name">Italian</span>
+              <span class="lang-level">
+                <span class="lbl">Mother tongue</span>
+                <span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+              </span>
+            </div>
+            <div class="lang">
+              <span class="lang-name">English</span>
+              <span class="lang-level">
+                <span class="lbl">Fluent</span>
+                <span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+              </span>
+            </div>
+            <div class="lang">
+              <span class="lang-name">French</span>
+              <span class="lang-level">
+                <span class="lbl">Beginner</span>
+                <span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              </span>
+            </div>
+            <div class="lang">
+              <span class="lang-name">German</span>
+              <span class="lang-level">
+                <span class="lbl">Beginner</span>
+                <span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 05 CONTACT ================= -->
+  <section class="section contact" id="contact" data-reveal-section>
+    <span class="rule" aria-hidden="true" style="background:color-mix(in srgb,var(--invert-fg) 22%,transparent)"></span>
+    <div class="contact-inner">
+      <p class="hud-label" data-reveal><span style="opacity:.55">05 /</span> Contact</p>
+      <h2 data-reveal>Start a <span class="serif">conversation.</span></h2>
+      <p class="contact-lede" data-reveal>
+        Available for IT consulting, network and system administration projects,
+        and web development work. Based in Bern, working anywhere.
+      </p>
+
+      <div class="contact-actions" data-reveal>
+        <a class="btn btn-accent" href="mailto:antonio.misiti@gmail.com">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email me
+        </a>
+        <a class="btn btn-outline-invert" href="tel:+41762085437">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call
+        </a>
+      </div>
+
+      <div class="contact-details" data-reveal>
+        <a href="tel:+41762085437">
+          <p class="hud-label">Mobile</p>
+          <span class="val">+41 76 20 85 437</span>
+        </a>
+        <a href="mailto:antonio.misiti@gmail.com">
+          <p class="hud-label">Email</p>
+          <span class="val">antonio.misiti@gmail.com</span>
+        </a>
+        <div>
+          <p class="hud-label">Location</p>
+          <span class="val">3018 — Bern (BE), Switzerland</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="hud-label">© 2026 Antonio Misiti</p>
+      <p class="hud-label">
+        I authorize the processing of my data in compliance with the laws and Swiss legislation
+        on Privacy (LPD, N.235.1 — 19.06.92).
+      </p>
+      <p class="hud-label faint">Guess who Designed</p>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+(function(){
+  /* ---------- theme toggle (defaults to dark) ---------- */
+  var root=document.documentElement, btn=document.getElementById('themeToggle');
+  var saved=null;
+  try{saved=localStorage.getItem('cv-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  function label(){btn.textContent=root.getAttribute('data-theme')==='light'?'Dark':'Light';}
+  label();
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='light'?'dark':'light';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('cv-theme',next);}catch(e){}
+    label();
+  });
+
+  /* ---------- scroll reveal ---------- */
+  var els=document.querySelectorAll('[data-reveal],[data-reveal-section]');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+      });
+    },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el,i){
+      el.style.transitionDelay=(Math.min(i%4,3)*70)+'ms';
+      io.observe(el);
+    });
+    /* hero visible immediately */
+    document.querySelectorAll('.hero [data-reveal]').forEach(function(el){el.classList.add('in');});
+  }else{
+    els.forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
+</body>
+</html>
